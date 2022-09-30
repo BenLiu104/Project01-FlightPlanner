@@ -6,7 +6,13 @@ let returnDate;
 let traveller;
 let cabinClass;
 //PREMIUM_ECONOMY, FIRST, BUSINESS
+// $.datepicker.formatDate( "yyyy-mm-dd");
+$( "#inputDepart" ).datepicker();
+$( "#inputDepart" ).datepicker( "option", "dateFormat", "yy-mm-dd");
+$( "#inputReturn" ).datepicker();
+$( "#inputReturn" ).datepicker( "option", "dateFormat", "yy-mm-dd");
 
+$(document).foundation();
 
 const turl = "https://test.api.amadeus.com/v1/security/oauth2/token";
 let token;

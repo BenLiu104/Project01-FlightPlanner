@@ -34,9 +34,10 @@
             <div class="grid-container">
                 <div class="grid-x grid-padding-x">
                     <div class="small-3 cell">
-                        <label>From
-                            <input id="inputFrom" type="text" placeholder="Please enter IATA code eg:YYZ">
-                        </label>
+                        <label for="inputFrom">From</label>
+                        <input id="inputFrom" type="text" placeholder="Please enter IATA code eg:YYZ">
+                        <a class="iata" target="_blank" href="https://www.nationsonline.org/oneworld/IATA_Codes/airport_code_list.htm"><small>Search IATA Code?</small></a>
+
                     </div>
                     <div class="small-3 cell">
                         <label>To
@@ -55,20 +56,30 @@
                     </div>
                     <div class="small-3 cell">
                         <label>Travelers
-                            <input id="inputTravelers" type="text" placeholder="2">
+                            <input id="inputTravelers" type="number" placeholder="2">
                         </label>
                     </div>
                     <div class="small-3 cell">
                         <label>Cabin Class
-                            <input id="inputCabin" type="text" placeholder="ECONOMY">
+                            <select id="inputCabin">
+                                <option value="ECONOMY">Economy</option>
+                                <option value="PREMIUM_ECONOMY">Premium</option>
+                                <option value="FIRST">First</option>
+                                <option value="BUSINESS">Business</option>
+                            </select>
+                            
                         </label>
                     </div>
                 </div>
             </div>
             <div class="grid-x align-center">
                 <button type="submit" class="Search button">Search</button>
+                
             </div>
         </form>
+
+     
+
 
 
         <section class="" id="content">

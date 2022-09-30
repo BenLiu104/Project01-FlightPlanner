@@ -46,3 +46,14 @@ nav{
     border:1px solid #dee2e685;
 
 }
+.grid-x:hover .iata{
+    display: inline;
+}
+
+.grid-x:hover #inputFrom{
+    margin-bottom: -7px;
+}
+
+.iata{
+    display: none;
+}
