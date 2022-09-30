@@ -28,87 +28,76 @@
             <a class="button cell-2">Hotel</a>
         </nav>
     </Header>
+
     <main>
-        <form>
+        <form id="searchForm">
             <div class="grid-container">
                 <div class="grid-x grid-padding-x">
                     <div class="small-3 cell">
                         <label>From
-                            <input type="text" placeholder="">
+                            <input id="inputFrom" type="text" placeholder="Please enter IATA code eg:YYZ">
                         </label>
                     </div>
                     <div class="small-3 cell">
                         <label>To
-                            <input type="text" placeholder="">
+                            <input id="inputTo" type="text" placeholder="Please enter IATA code eg:HKG">
                         </label>
                     </div>
                     <div class="small-3 cell">
                         <label>Departure
-                            <input type="text" placeholder="">
+                            <input id="inputDepart" type="text" placeholder="2022-10-10">
                         </label>
                     </div>
                     <div class="small-3 cell">
                         <label>Return
-                            <input type="text" placeholder="">
+                            <input id="inputReturn" type="text" placeholder="2022-10-20">
                         </label>
                     </div>
                     <div class="small-3 cell">
                         <label>Travelers
-                            <input type="text" placeholder="">
+                            <input id="inputTravelers" type="text" placeholder="2">
                         </label>
                     </div>
                     <div class="small-3 cell">
                         <label>Cabin Class
-                            <input type="text" placeholder="">
+                            <input id="inputCabin" type="text" placeholder="ECONOMY">
                         </label>
                     </div>
                 </div>
             </div>
             <div class="grid-x align-center">
-                <button class=" Search button">Search</button>
+                <button type="submit" class="Search button">Search</button>
             </div>
         </form>
-    </main>
-    <section id="content">
-        <div class="table-container">
-            <!--hotel info will go here,after search button is clicked-->
-            <table class="table">
-                <thead>
-                    <tr>
-                        <th></th>
-                        <th>Flight No</th>
-                        <th>Departure City</th>
-                        <th>Departure Date And Time</th>
-                        <th>Arrival City Name</th>
-                        <th>Arrival Date And Time</th>
-                        <th>Flight Duration </th>
-                        <th>Flight Cost </th>
-                    </tr>
-                    
-                </thead>
-                <tbody>
-                    <tr>
-                    <td data-label="Depart">Depart</td>
-                    <td data-label="Flight No">AC 42</td>
-                    <td data-label="Departure City">Toronto</td>
-                    <td data-label="Departure Date And Time">29/09/2022 9:00 AM</td>
-                    <td data-label="Arrival City">New Delhi</td>
-                    <td data-label="Arrival Date And Time">30/09/2022 12:00 PM</td>
-                    <td data-label="Flight Duration">12 Hrs</td>
-                    <td data-label="Flight Cost">$ 1400</td>
-                    </tr>
-                    <td data-label="Return">Return</td>
-                    <td data-label="Flight No">AC 42</td>
-                    <td data-label="Departure City">Toronto</td>
-                    <td data-label="Departure Date And Time">29/09/2022 9:00 AM</td>
-                    <td data-label="Arrival City">New Delhi</td>
-                    <td data-label="Arrival Date And Time">30/09/2022 12:00 PM</td>
-                    <td data-label="Flight Duration">12 Hrs</td>
-                    <td data-label=" flight Cost">$ 1400</td>
-                 </tr>
-                </tbody>
+
+
+        <section class="" id="content">
+
+            <div class="table-scroll text-center">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th></th>
+                            <th>Flight No</th>
+                            <th>Departure City</th>
+                            <th>Departure Date And Time</th>
+                            <th>Arrival City Name</th>
+                            <th>Arrival Date And Time</th>
+                            <th>Flight Duration </th>
+                            <th>Flight Cost </th>
+                        </tr>
+                    </thead>
+                    <tbody id="flight">
+
+                    </tbody>
+
                 </table>
+                <div id="bookFlight">
+
+                </div>
+
             </div>
+
             <div class="card" style="width: 300px;">
                 <div class="card-divider">
                     Hotel Name
@@ -118,8 +107,10 @@
                     <h4>Available Room No</h4>
                 </div>
             </div>
-            </section>
-            
+
+        </section>
+
+    </main>
 
     <!-- Jquery JavaScript Libraries -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>

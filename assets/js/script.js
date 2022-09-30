@@ -1,20 +1,35 @@
 
-let origin = "YYZ";
-let destin = "HKG";
-let departDate = "2022-11-01";
-let returnDate = "2022-11-15";
-let traveller = "2";
-let cabinClass = "ECONOMY"
+let origin;
+let destin;
+let departDate;
+let returnDate;
+let traveller;
+let cabinClass;
+//PREMIUM_ECONOMY, FIRST, BUSINESS
 
-let turl = "https://test.api.amadeus.com/v1/security/oauth2/token";
-let surl = `https://test.api.amadeus.com/v2/shopping/flight-offers?originLocationCode=${origin}&destinationLocationCode=${destin}&departureDate=${departDate}&returnDate=${returnDate}&adults=${traveller}&travelClass=${cabinClass}&nonStop=true&currencyCode=CAD&max=10`;
 
+const turl = "https://test.api.amadeus.com/v1/security/oauth2/token";
 let token;
+let surl;
 
-//getFlight();
+$("#searchForm").on("submit", function (e) {
+    e.preventDefault();
+    origin = $("#inputFrom").val();
+    destin = $("#inputTo").val();
+    departDate = $("#inputDepart").val();
+    returnDate = $("#inputReturn").val();
+    traveller = $("#inputTravelers").val();
+    cabinClass = $("#inputCabin").val();
+    
+    surl = `https://test.api.amadeus.com/v2/shopping/flight-offers?originLocationCode=${origin}&destinationLocationCode=${destin}&departureDate=${departDate}&returnDate=${returnDate}&adults=${traveller}&travelClass=${cabinClass}&nonStop=true&currencyCode=CAD&max=10`;
+    
+    getFlight();
+})
+
 
 function getFlight() {
     //authorize to get access token
+    let returnToken;
     fetch(turl, {
         method: "POST",
         headers: { "Content-Type": "application/x-www-form-urlencoded" },
@@ -26,13 +41,12 @@ function getFlight() {
 
     }).then(function (data) {
         console.log(data);
-        token = data.access_token;
+        returnToken = data.access_token;
         //pass token to further flight seaching
-        searchFlight(surl, token);
+        searchFlight(surl, returnToken);
     });
-
+    
 }
-
 
 function searchFlight(surl, token) {
     console.log(token);
@@ -44,42 +58,53 @@ function searchFlight(surl, token) {
         return response.json();
     }).then(function (result) {
         console.log(result);
-
+        let typeEl;
+        let trEl;
+        $("#flight").children().remove();
+        $("#bookFlight").children().remove();
         for (let offer = 0; offer < Object.keys(result.data).length; offer++) {
-            let divEl = $("<div>").attr("id", `offer${offer}`);
-            $("#flight").append(divEl);
+
             for (let i = 0; i < Object.keys(result.data[offer].itineraries).length; i++) {
-                if (i % 2 == 0) {
-                    let divEl = $("<div>").attr("id", `intinary${i}`).text("Depart:");
-                    $(`#offer${offer}`).append(divEl);
-                } else {
-                    let divEl = $("<div>").attr("id", `intinary${i}`).text("Return:");
-                    $(`#offer${offer}`).append(divEl);
-                }
+
                 for (let j = 0; j < Object.keys(result.data[offer].itineraries[i].segments).length; j++) {
+                    if (i % 2 == 0) {
+                        typeEl = $("<td>").text("Deaprt");
+                        trEl = $("<tr>");
+                    } else {
+                        typeEl = $("<td>").text("Return");
+                        trEl = $("<tr>");
+                        trEl.attr("style", "border-bottom:5px solid black");
+                    }
+
                     let departTime = result.data[offer].itineraries[i].segments[j].departure.at;
-                    let departureTimeEl = $("<li>").text(departTime.split("T")[0] + " " + departTime.split("T")[1]);
-                    let departureCityEl = $("<li>").text(result.data[offer].itineraries[i].segments[j].departure.iataCode);
+                    let departureTimeEl = $("<td>").text(departTime.split("T")[0] + " " + departTime.split("T")[1]);
+                    let departureCityEl = $("<td>").text(result.data[offer].itineraries[i].segments[j].departure.iataCode);
                     let arrivalTime = result.data[offer].itineraries[i].segments[j].arrival.at;
-                    let arrivalTimeEl = $("<li>").text(arrivalTime.split("T")[0] + " " + arrivalTime.split("T")[1]);
-                    let arrivalCityEl = $("<li>").text(result.data[offer].itineraries[i].segments[j].arrival.iataCode);
+                    let arrivalTimeEl = $("<td>").text(arrivalTime.split("T")[0] + " " + arrivalTime.split("T")[1]);
+                    let arrivalCityEl = $("<td>").text(result.data[offer].itineraries[i].segments[j].arrival.iataCode);
                     let duration = result.data[offer].itineraries[i].segments[j].duration;
-                    let durationEl = $("<li>").text(duration.slice(2));
+                    let durationEl = $("<td>").text(duration.slice(2));
                     let carrier = result.data[offer].itineraries[i].segments[j].carrierCode;
                     let number = result.data[offer].itineraries[i].segments[j].number;
-                    let flightNumEl = $("<li>").text(carrier + number);
-
-                    $(`#offer${offer}`).append(departureCityEl, departureTimeEl, arrivalCityEl, arrivalTimeEl, durationEl, flightNumEl);
+                    let flightNumEl = $("<td>").text(carrier + number);
+                    let currEl = result.data[offer].price.currency;
+                    let price = Math.floor((Number(result.data[offer].price.total) + Number(result.data[offer].price.base)));
+                    let priceEl = $("<td>").text(price + currEl);
+                    if (i % 2 == 0) {
+                        trEl.append(typeEl, flightNumEl, departureCityEl, departureTimeEl, arrivalCityEl, arrivalTimeEl, durationEl, $("<td>"));
+                    } else {
+                        trEl.append(typeEl, flightNumEl, departureCityEl, departureTimeEl, arrivalCityEl, arrivalTimeEl, durationEl, priceEl);
+                    }
+                    $("#flight").append(trEl);
                 }
-
             }
-            let currEl = result.data[offer].price.currency;
-            let price = result.data[offer].price.total;
-            let priceEl = $("<li>").text("Price: " + price + currEl);
-            $(`#offer${offer}`).append(priceEl, $("<br>"));
 
         }
-
+        //render book flight botton
+        let dDay=departDate.split("-")[0]+departDate.split("-")[1]+departDate.split("-")[2];
+        let rDay=returnDate.split("-")[0]+returnDate.split("-")[1]+returnDate.split("-")[2];
+        let aEl = $("<a>").addClass("button").text("Book Flight").attr({"href":`https://www.skyscanner.ca/transport/flights/${origin}/${destin}/${dDay}/${rDay}/?adults=${traveller}&adultsv2=${traveller}&cabinclass=${cabinClass}&children=0&childrenv2=&inboundaltsenabled=false&infants=0&outboundaltsenabled=false&ref=home&rtn=1&stops=!oneStop,!twoPlusStops`,"target":"_blank"});
+        $("#bookFlight").append(aEl);
 
     })
 }
