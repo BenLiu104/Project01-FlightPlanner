@@ -57,3 +57,14 @@ nav{
 .button:hover{
     background-color:#3A4390;
 }
+.grid-x:hover .iata{
+    display: inline;
+}
+
+.grid-x:hover #inputFrom{
+    margin-bottom: -7px;
+}
+
+.iata{
+    display: none;
+}
