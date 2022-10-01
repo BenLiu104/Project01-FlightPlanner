@@ -22,7 +22,7 @@
     <Header>
         <nav class="grid-x align-justify align-center ">
             <a class="button cell-2">Flight</a>
-            <img src="./logo.png" class="cell-2" alt="logo image"
+            <img src="./assets/logo.png" class="cell-2" id="logo" alt="logo image"
                 style="display: block; margin-right: auto; margin-left: auto" ;>
             <a class="button cell-2">Hotel</a>
         </nav>
@@ -83,18 +83,18 @@
                         <th>Flight Duration </th>
                         <th>Flight Cost </th>
                     </tr>
-                    
+
                 </thead>
                 <tbody>
                     <tr>
-                    <td data-label="Depart">Depart</td>
-                    <td data-label="Flight No">AC 42</td>
-                    <td data-label="Departure City">Toronto</td>
-                    <td data-label="Departure Date And Time">29/09/2022 9:00 AM</td>
-                    <td data-label="Arrival City">New Delhi</td>
-                    <td data-label="Arrival Date And Time">30/09/2022 12:00 PM</td>
-                    <td data-label="Flight Duration">12 Hrs</td>
-                    <td data-label="Flight Cost">$ 1400</td>
+                        <td data-label="Depart">Depart</td>
+                        <td data-label="Flight No">AC 42</td>
+                        <td data-label="Departure City">Toronto</td>
+                        <td data-label="Departure Date And Time">29/09/2022 9:00 AM</td>
+                        <td data-label="Arrival City">New Delhi</td>
+                        <td data-label="Arrival Date And Time">30/09/2022 12:00 PM</td>
+                        <td data-label="Flight Duration">12 Hrs</td>
+                        <td data-label="Flight Cost">$ 1400</td>
                     </tr>
                     <td data-label="Return">Return</td>
                     <td data-label="Flight No">AC 42</td>
@@ -104,21 +104,32 @@
                     <td data-label="Arrival Date And Time">30/09/2022 12:00 PM</td>
                     <td data-label="Flight Duration">12 Hrs</td>
                     <td data-label=" flight Cost">$ 1400</td>
-                 </tr>
+                    </tr>
                 </tbody>
-                </table>
-            </div>
-            <div class="card" style="width: 300px;">
-                <div class="card-divider">
-                    Hotel Name
+            </table>
+        </div>
+        <div class="grid-x grid-margin-x small-up-2 medium-up-3">
+            <div class="cell">
+                <div class="card">
+                    <div class="card-section">
+                        <h4>Hotel Name</h4>
+                        <img src="./assets/hotelimgdemo.png">
+                        <p>Available Room No</p>
+                    </div>
                 </div>
-                <img src="assets/hotelimgdemo.png">
-                <div class="card-section">
-                    <h4>Available Room No</h4>
+            </div>
+            <div class="cell">
+                <div class="card">
+                    <div class="card-section">
+                        <h4>Hotel Name</h4>
+                        <img src="./assets/hotelimgdemo.png">
+                        <p>Available Room No</p>
+                    </div>
                 </div>
             </div>
-            </section>
-            
+    </section>
+
+
 
     <!-- Jquery JavaScript Libraries -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
@@ -129,7 +140,20 @@
 
     <script src="./assets/js/script.js"></script>
 </body>
+<footer>
+    <div class="grid-x grid-padding-x align-center">
+        <!-- Aligned to the center -->
+        <div class="cell small-4">
+            <p>Connect:</p>
+            <div><a href="https://github.com/HarmanBoparai">Harman</a></div>
+            <div><a href="https://github.com/BenLiu104">Ben Liu</a></div>
+            <div> <a href="https://github.com/TsunomakiWatamee">Tsunomaki Watamee</a></div>
 
+        </div>
+    </div>
+    <div class=  "text-center">
+        <div class="small-3">@Copyright2022 Powered by Team5</div>
+    </div>
 </footer>
 
 </html>

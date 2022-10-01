@@ -4,12 +4,20 @@
     box-sizing:border-box;
     font-family: sans-serif;
 }
+header{
+    background-color:#62A4F1;
+}
+
 body{
-    background-color: bisque;
+    background-color:#62A4F1;
     justify-content:center;
 }
 nav{
    margin-bottom:10px;
+}
+#logo{
+    width:70px;
+    height:70px;;
 }
 .table-container{
     padding: 0 10%;
@@ -44,5 +52,8 @@ nav{
     padding:8px;
     text-align: center ;
     border:1px solid #dee2e685;
+}
 
+.button:hover{
+    background-color:#3A4390;
 }
