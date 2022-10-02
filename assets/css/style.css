@@ -82,3 +82,8 @@ nav {
     display: none;
 }
 
+.custom-contact {
+    max-width: 150px;
+    margin-bottom: 2px;
+
+}
