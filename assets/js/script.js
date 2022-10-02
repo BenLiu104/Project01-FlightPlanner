@@ -1,4 +1,4 @@
-
+//flight searching API Implementation
 let origin;
 let destin;
 let departDate;
@@ -24,28 +24,12 @@ $(document).foundation();
 //render history of seaching to the page
 renderHistory();
 
-//handle form submit event
-$("#searchForm").on("submit", function (e) {
-    e.preventDefault();
-    origin = $("#inputFrom").val().toUpperCase().trim();
-    destin = $("#inputTo").val().toUpperCase().trim();
-    departDate = $("#inputDepart").val();
-    returnDate = $("#inputReturn").val();
-    traveller = $("#inputTravelers").val();
-    cabinClass = $("#inputCabin").val();
-    //construct seaching url by using use input
-    surl = `https://test.api.amadeus.com/v2/shopping/flight-offers?originLocationCode=${origin}&destinationLocationCode=${destin}&departureDate=${departDate}&returnDate=${returnDate}&adults=${traveller}&travelClass=${cabinClass}&nonStop=true&currencyCode=CAD&max=10`;
-    
-    saveToStorage(origin, destin, departDate, returnDate, traveller, cabinClass);
-    renderHistory();
 
-    getFlight();
-})
 
 //function to save user seaching data to local storage
 function saveToStorage(origin, destin, departDate, returnDate, traveller, cabinClass) {
     let record = { "origin": origin, "destin": destin, "departDate": departDate, "returnDate": returnDate, "traveller": traveller, "cabinClass": cabinClass }
-    if(historyList.length>=5){
+    if (historyList.length >= 5) {
         let tempList = historyList.reverse();
         tempList.pop();
         historyList = tempList.reverse();
@@ -68,27 +52,13 @@ function renderHistory() {
     $("#histoyRecord").children().remove();
     for (let i = 0; i < historyList.length; i++) {
         let liEl = $("<li>");
-        let aEl = $("<a>").text(historyList[i].origin+" - "+historyList[i].destin);
-        aEl.data("info",{"origin": historyList[i].origin, "destin": historyList[i].destin, "departDate": historyList[i].departDate, "returnDate": historyList[i].returnDate, "traveller": historyList[i].traveller, "cabinClass": historyList[i].cabinClass});
+        let aEl = $("<a>").text(historyList[i].origin + " - " + historyList[i].destin);
+        aEl.data("info", { "origin": historyList[i].origin, "destin": historyList[i].destin, "departDate": historyList[i].departDate, "returnDate": historyList[i].returnDate, "traveller": historyList[i].traveller, "cabinClass": historyList[i].cabinClass });
         liEl.append(aEl);
         $("#histoyRecord").append(liEl);
     }
 }
 
-//handle click event when using click on history
-$("#histoyRecord").on("click","a",function(e){
-    e.preventDefault();
-    console.log($(e.target).data("info"));
-    origin = $(e.target).data("info").origin;
-    destin = $(e.target).data("info").destin;
-    departDate = $(e.target).data("info").departDate;
-    returnDate = $(e.target).data("info").returnDate;
-    traveller = $(e.target).data("info").traveller;
-    cabinClass = $(e.target).data("info").cabinClass;
-    surl = `https://test.api.amadeus.com/v2/shopping/flight-offers?originLocationCode=${origin}&destinationLocationCode=${destin}&departureDate=${departDate}&returnDate=${returnDate}&adults=${traveller}&travelClass=${cabinClass}&nonStop=true&currencyCode=CAD&max=10`;
-    getFlight();
-
-})
 
 //function to start the Flight searching
 function getFlight() {
@@ -107,17 +77,18 @@ function getFlight() {
         $("#bookFlight").children().remove();
         //pass token to further flight seaching
         searchFlight(surl, returnToken);
+        // hotelRecomm(latitude,longitude,returnToken);
     });
 }
 
 //function to call Flight API to get the Airline info
 function searchFlight(surl, token) {
-    console.log(`Authorization :Bearer ${token}`);
+    
     fetch(surl, {
         headers: { Authorization: `Bearer ${token}` },
     }).then(function (response) {
-        console.log(response.status);
-        if(response.status==400){
+
+        if (response.status == 400) {
             alert("please enter the valid IATA code")
         }
         return response.json();
@@ -130,7 +101,7 @@ function searchFlight(surl, token) {
             for (let i = 0; i < Object.keys(result.data[offer].itineraries).length; i++) {
                 for (let j = 0; j < Object.keys(result.data[offer].itineraries[i].segments).length; j++) {
                     if (i % 2 == 0) {
-                        typeEl = $("<td>").text("Deaprt");
+                        typeEl = $("<td>").text("Depart");
                         trEl = $("<tr>");
                     } else {
                         typeEl = $("<td>").text("Return");
@@ -149,7 +120,7 @@ function searchFlight(surl, token) {
                     let number = result.data[offer].itineraries[i].segments[j].number;
                     let flightNumEl = $("<td>").text(carrier + number);
                     let currEl = result.data[offer].price.currency;
-                    let price = Math.floor((Number(result.data[offer].price.total) + Number(result.data[offer].price.base)));
+                    let price = Math.floor((Number(result.data[offer].price.total)));
                     let priceEl = $("<td>").text(price + currEl);
                     if (i % 2 == 0) {
                         trEl.append(typeEl, flightNumEl, departureCityEl, departureTimeEl, arrivalCityEl, arrivalTimeEl, durationEl, $("<td>"));
@@ -169,6 +140,122 @@ function searchFlight(surl, token) {
 
     })
 }
+// ---------------------------------------------------  Event handling ----------
+//handle form submission event
+$("#searchForm").on("submit", function (e) {
+    e.preventDefault();
+    $("#resultTable").attr("class","table");
+    origin = $("#inputFrom").val().toUpperCase().trim();
+    destin = $("#inputTo").val().toUpperCase().trim();
+    departDate = $("#inputDepart").val();
+    returnDate = $("#inputReturn").val();
+    traveller = $("#inputTravelers").val();
+    cabinClass = $("#inputCabin").val();
+    //construct seaching url by using user input
+    surl = `https://test.api.amadeus.com/v2/shopping/flight-offers?originLocationCode=${origin}&destinationLocationCode=${destin}&departureDate=${departDate}&returnDate=${returnDate}&adults=${traveller}&travelClass=${cabinClass}&nonStop=true&currencyCode=CAD&max=10`;
+
+    saveToStorage(origin, destin, departDate, returnDate, traveller, cabinClass);
+    renderHistory();
+    getHotel();
+    getFlight();
+})
+
+//handle click event when user click on history
+$("#histoyRecord").on("click", "a", function (e) {
+    e.preventDefault();
+    $("#resultTable").attr("class","table");
+    console.log($(e.target).data("info"));
+    origin = $(e.target).data("info").origin;
+    destin = $(e.target).data("info").destin;
+    departDate = $(e.target).data("info").departDate;
+    returnDate = $(e.target).data("info").returnDate;
+    traveller = $(e.target).data("info").traveller;
+    cabinClass = $(e.target).data("info").cabinClass;
+    surl = `https://test.api.amadeus.com/v2/shopping/flight-offers?originLocationCode=${origin}&destinationLocationCode=${destin}&departureDate=${departDate}&returnDate=${returnDate}&adults=${traveller}&travelClass=${cabinClass}&nonStop=true&currencyCode=CAD&max=10`;
+    console.log(destin);
+    getHotel();
+    getFlight();
+})
 
 
+//------------------------------ Hotel searching API implementation  --------------
 
+let hotelCity;
+
+//function to initialize hotel searching
+function getHotel() {
+    let hurl = `https://www.air-port-codes.com/api/v1/single?iata=${destin}`;
+    //call API to convert IATA code into City name
+    fetch(hurl, {
+        headers: {
+            "Apc-Auth": "bd1e3aa6c2",
+            "Apc-Auth-Secret": "f9d860d4137993a",
+        },
+        method: "POST"
+    }).then(function (response) {
+        return response.json();
+    }).then(function (data) {
+        
+        hotelCity = data.airport.city;
+        console.log(hotelCity);
+        //call search hotel function
+        searchHotel();
+    });
+}
+
+//function to searching the hotel by calling hotel API
+function searchHotel() {
+    //define header
+    const options = {
+        method: 'GET',
+        headers: {
+            //paste header content here
+            'X-RapidAPI-Key': '5787b0bb30msha05fd7fa4034971p1dcd12jsnf9d7c8c1c0d7',
+            'X-RapidAPI-Host': 'hotels4.p.rapidapi.com'
+        }
+    };
+
+    fetch(`https://hotels4.p.rapidapi.com/locations/v2/search?query=${hotelCity}`, options)
+        .then(response => response.json())
+        .then(function (result) {
+            console.log(result);
+
+            for (let i = 0; i < 4 && i < Object.keys(result.suggestions[1].entities).length; i++) {
+                let desID = result.suggestions[1].entities[i].destinationId;
+                
+                $("#hotel-box").children().remove();
+                fetch(`https://hotels4.p.rapidapi.com/properties/get-details?id=${desID}`, options)
+                    .then(response => response.json())
+                    .then(function (result) {
+                        console.log(result);
+                        //render hotel name and rating to page
+                        let hotelName = result.data.body.propertyDescription.name;
+                        console.log(hotelName);
+                        let starRate = result.data.body.propertyDescription.starRating;
+                        console.log(starRate);
+                        let divEl = $("<div>").addClass("card cell large-4").attr("style", "max-width:300px");
+                        let titleEl = $("<div>").addClass("card-divider").text(hotelName);
+                        let imageEl = $("<div>").attr("id", `image${i}`);
+                        let ratingEl = $("<div>").addClass("card-section").append($("<h4>").text("Hotel Star: " + starRate));
+                        divEl.append(titleEl, imageEl, ratingEl);
+                        $("#hotel-box").append(divEl);
+
+                        fetch(`https://hotels4.p.rapidapi.com/properties/get-hotel-photos?id=${desID}`, options)
+                            .then(response => response.json())
+                            .then(function (result) {
+                                console.log(result);
+                                //render hotel image to page
+                                let imageUrl = result.hotelImages[i].baseUrl.split("_")[0] + ".jpg";
+                                let imgEl = $("<img>").attr("src", `${imageUrl}`);
+                                $(`#image${i}`).append(imgEl);
+
+                            })
+                            .catch(err => console.error(err));
+                    })
+                    .catch(err => console.error(err));
+
+            }
+        })
+        .catch(err => console.error(err));
+
+}
