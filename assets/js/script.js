@@ -88,10 +88,8 @@ function searchFlight(surl, token) {
         headers: { Authorization: `Bearer ${token}` },
     }).then(function (response) {
 
-        if (response.status == 400) {
-            alert("please enter the valid IATA code")
-        }
         return response.json();
+        
     }).then(function (result) {
         console.log(result);
         let typeEl;
