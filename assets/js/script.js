@@ -83,7 +83,7 @@ function getFlight() {
 
 //function to call Flight API to get the Airline info
 function searchFlight(surl, token) {
-    
+
     fetch(surl, {
         headers: { Authorization: `Bearer ${token}` },
     }).then(function (response) {
@@ -144,7 +144,7 @@ function searchFlight(surl, token) {
 //handle form submission event
 $("#searchForm").on("submit", function (e) {
     e.preventDefault();
-    $("#resultTable").attr("class","table");
+    $("#resultTable").attr("class", "table");
     origin = $("#inputFrom").val().toUpperCase().trim();
     destin = $("#inputTo").val().toUpperCase().trim();
     departDate = $("#inputDepart").val();
@@ -163,7 +163,7 @@ $("#searchForm").on("submit", function (e) {
 //handle click event when user click on history
 $("#histoyRecord").on("click", "a", function (e) {
     e.preventDefault();
-    $("#resultTable").attr("class","table");
+    $("#resultTable").attr("class", "table");
     console.log($(e.target).data("info"));
     origin = $(e.target).data("info").origin;
     destin = $(e.target).data("info").destin;
@@ -195,7 +195,7 @@ function getHotel() {
     }).then(function (response) {
         return response.json();
     }).then(function (data) {
-        
+
         hotelCity = data.airport.city;
         console.log(hotelCity);
         //call search hotel function
@@ -209,8 +209,7 @@ function searchHotel() {
     const options = {
         method: 'GET',
         headers: {
-            //paste header content here
-            'X-RapidAPI-Key': '5787b0bb30msha05fd7fa4034971p1dcd12jsnf9d7c8c1c0d7',
+            'X-RapidAPI-Key': '86214fd43amshd95edfa25068fadp1277c5jsnd6668ed6eebd',
             'X-RapidAPI-Host': 'hotels4.p.rapidapi.com'
         }
     };
@@ -222,7 +221,7 @@ function searchHotel() {
 
             for (let i = 0; i < 4 && i < Object.keys(result.suggestions[1].entities).length; i++) {
                 let desID = result.suggestions[1].entities[i].destinationId;
-                
+
                 $("#hotel-box").children().remove();
                 fetch(`https://hotels4.p.rapidapi.com/properties/get-details?id=${desID}`, options)
                     .then(response => response.json())
