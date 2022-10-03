@@ -21,22 +21,24 @@
 
 <body>
     <Header>
-        <nav class="grid-x align-justify align-center ">
-            <a class="button cell-2">Flight</a>
+        <nav class="grid-x align-justify align-center align-middle">
+            <a href="#resultTable" class="button cell-2">Flight</a>
             <img src="./assets/logo.png" class="cell-2" id="logo" alt="logo image"
                 style="display: block; margin-right: auto; margin-left: auto" ;>
-            <a class="button cell-2">Hotel</a>
+            <a href="#hotel-box" class="button cell-2">Hotel</a>
         </nav>
     </Header>
 
     <main>
         <form id="searchForm">
             <div class="grid-container">
-                <div class="grid-x grid-padding-x">
+                <div class="grid-x grid-padding-x align-center">
                     <div class="small-3 cell">
                         <label for="inputFrom">From</label>
                         <input id="inputFrom" type="text" placeholder="Please enter IATA code eg:YYZ">
-                        <a class="iata" target="_blank" href="https://www.nationsonline.org/oneworld/IATA_Codes/airport_code_list.htm"><small>Search IATA Code?</small></a>
+                        <a class="iata" target="_blank"
+                            href="https://www.nationsonline.org/oneworld/IATA_Codes/airport_code_list.htm"><small>Search
+                                IATA Code?</small></a>
 
                     </div>
                     <div class="small-3 cell">
@@ -67,32 +69,32 @@
                                 <option value="FIRST">First</option>
                                 <option value="BUSINESS">Business</option>
                             </select>
-                            
+
                         </label>
                     </div>
                 </div>
             </div>
             <div class="grid-x align-center">
                 <button type="submit" class="Search button">Search</button>
-                
+
             </div>
         </form>
 
-     
-<ul class="vertical menu accordion-menu border-box" style="max-width: 200px"data-accordion-menu>
-  <li>
-    <a href="#">History</a>
-    <ul class="menu vertical nested" id="histoyRecord">
-      
-    </ul>
-  </li>
-</ul>
+
+        <ul class="vertical menu accordion-menu border-box" style="max-width: 200px" data-accordion-menu>
+            <li>
+                <a href="#">History</a>
+                <ul class="menu vertical nested" id="histoyRecord">
+
+                </ul>
+            </li>
+        </ul>
 
 
-        <section class="" id="content">
+        <section id="content">
 
             <div class="table-scroll text-center">
-                <table class="table">
+                <table class="table invisible" id="resultTable">
                     <thead>
                         <tr>
                             <th></th>
@@ -108,28 +110,40 @@
                     <tbody id="flight">
 
                     </tbody>
-
                 </table>
+
                 <div id="bookFlight">
 
                 </div>
 
             </div>
 
-            <div class="card" style="width: 300px;">
-                <div class="card-divider">
-                    Hotel Name
-                </div>
-                <img src="assets/hotelimgdemo.png">
-                <div class="card-section">
-                    <h4>Available Room No</h4>
-                </div>
+            <div class="grid-x align-center grid-margin-x" id="hotel-box">
+
             </div>
+
 
         </section>
 
     </main>
 
+
+    <div id="contact" class="grid-container">
+        <h3>Contact Us</h3>
+        <div class="card-divider align-center custom-contact">
+            <a href="https://github.com/BenLiu104"><span>Ben Liu:</span><img src="./assets/github-sign.png" alt=""
+                    style="width:20px"></a>
+        </div>
+        <div class="card-divider align-center custom-contact">
+            <a href="https://github.com/HarmanBoparai"><span>Harmanjot: </span><img src="./assets/github-sign.png"
+                    alt="" style="width:20px"></a>
+        </div>
+        <div class="card-divider align-center custom-contact">
+            <a href="https://github.com/TsunomakiWatamee"><span>Minh Thach: </span><img src="./assets/github-sign.png"
+                    alt="" style="width:20px"></a>
+        </div>
+
+    </div>
 
     <!-- Jquery JavaScript Libraries -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
@@ -141,12 +155,16 @@
         crossorigin="anonymous"></script>
 
     <script src="./assets/js/script.js"></script>
+
 </body>
 
-        </div>
-    </div>
-    <div class=  "text-center">
-        <div class="small-3">@Copyright2022 Powered by Team5</div>
+
+<footer>
+
+
+
+    <div class="text-center">
+        <div class="">@Copyright2022 Powered by Team5</div>
     </div>
 </footer>
 
