@@ -3,13 +3,19 @@
 ## Overview
 
 User Story:
+
 As a traveler, I would like to acquire information that’ll strategically assist me on arranging my trip effortlessly
 
 Acceptance Criteria: 
+
 GIVEN I am a traveler, 
+
 WHEN I input my requirement (number of people, start location, destination location, departure date, return date, cabin class), THEN I can see all the flight information for comparison. 
+
 WHEN I continue to browse, THEN I can see some the recommended hotel of designation and their ratings. 
+
 WHEN I click on book flight button, THEN I will be redirected to the booking website.
+
 
 
 
@@ -39,7 +45,9 @@ Step 3: If want to make the flight booking, click "Book Flight" button. You will
 
 ## Credits
 Ben Liu: https://github.com/BenLiu104
+
 Harmanjot Boparai: https://github.com/HarmanBoparai
+
 Minh Thach: https://github.com/TsunomakiWatamee
 
 
