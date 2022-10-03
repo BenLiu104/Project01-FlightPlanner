@@ -41,6 +41,8 @@ Step 2: Click "Search" button, and the page will return Flight and hotel informa
 
 Step 3: If want to make the flight booking, click "Book Flight" button. You will be redirect to external the booking page.
 
+## Presentationo PowerPoint
+https://docs.google.com/presentation/d/18-jTK2etNKfTMnuQy0EBmOOybl05hOUylL2T7H5DvCk/edit?usp=sharing
 
 
 ## Credits
